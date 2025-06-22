@@ -8,6 +8,7 @@ function SeizureItem(props: SeizureItemProps) {
     return (
         <View >
             <Text>
+                {/* TODO - display date/time ONLY */}
                 {props.text}
             </Text>
         </View>

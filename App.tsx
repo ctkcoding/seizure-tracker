@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import SeizureEditor from './components/SeizureEditor';
 
 export default function App() {
-  const [modalIsVisible, setModalIsVisible] = useState(false) 
+  const [modalIsVisible, setModalIsVisible] = useState(false);
   const [seizures, setSeizures] = useState([]);
 
   function showSeizureEditorHandler() {

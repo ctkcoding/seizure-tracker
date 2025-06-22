@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Modal, Image } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Modal } from "react-native";
+import PressableButton from './PressableButton';
+import ButtonGroup, {ButtonData} from './ButtonGroup'
 
 interface SeizureEditorProps {
     text: string;
@@ -8,53 +10,107 @@ interface SeizureEditorProps {
 }
 
 function SeizureEditor(props: SeizureEditorProps) {
+
+    const seizureTimes: ButtonData[] = [
+        {
+            "title": "Under 1min",
+            "key": 0,
+        },
+        {
+            "title": "Under 5min",
+            "key": 1,
+        },
+        {
+            "title": "Over 5min",
+            "key": 2,
+        },
+    ];
+
+    const seizureActions: ButtonData[] = [
+        { 
+            "title": "Fell down",
+            "key": 0,
+        },
+        {   
+            "title": "Drooled",
+            "key": 1,
+        },
+        {   
+            "title": "Lost consciousness",
+            "key": 2,
+        },
+        {   
+            "title": "Aura",
+            "key": 3,
+        },
+        {   
+            "title": "Tremors",
+            "key": 4,
+        }
+
+    ];
+
+    const seizureTriggers: ButtonData[] = [
+        {   
+            "title": "Bad sleep - today",
+            "key": 0,
+        },
+        {   
+            "title": "Bad sleep - past 2 days",
+            "key": 1,
+        },
+        {   
+            "title": "Meals off schedule",
+            "key": 2,
+        },
+        {   
+            "title": "Meds off schedule",
+            "key": 3,
+        },
+        {   
+            "title": "Excessive heat - in or out",
+            "key": 4,
+        },
+        {   
+            "title": "Agitated/stress",
+            "key": 5,
+        }
+    ];
+
     return(
         <Modal visible={props.visible} animationType="slide">
             <View style={styles.inputContainer}>
                 <View style={styles.viewSection}>
-                    <Text>edit seizure below:</Text>
-                    <TextInput // todo - handle as form
+                    <Text>Seizure date and time:</Text>
+                    {/* TODO - replace with picker */}
+                    <TextInput
                         style={styles.textInput}
                         placeholder="Seizure date"
-                        // onChangeText={goalInputHandler}
-                        // value={enteredGoalText} 
                     />
                     <TextInput
                         placeholder="Seizure time"
                         style={styles.textInput}
                     />
-                    {/* button based booleans */}
-                    {/* <Text>Experience flags</Text> */}
                     <Text>Length of seizure</Text>
                     <View style={styles.buttonContainer}>
-                        <Button title="Under 1min"/>
-                        <Button title="Under 5min"/>
-                        <Button title="Over 5min"/>
+                        <ButtonGroup buttons={seizureTimes} exclusive={true}/>
                     </View>
-
                     <Text>Type of seizure</Text>
                     <View style={styles.buttonContainer}>
-                        <Button title="Fell down"/>
-                        <Button title="Drooled"/>
-                        <Button title="Lost consciousness"/>
-                        <Button title="Aura"/>
-                        <Button title="Tremors"/>
+                        <ButtonGroup buttons={seizureActions} exclusive={false}/>
                     </View>
 
-                    <Text>Trigger flags</Text>
+                    <Text>Possible triggers</Text>
                     <View style={styles.buttonContainer}>
-                        <Button title="Bad sleep - today"/>
-                        <Button title="Bad sleep - last 2 days"/>
-                        <Button title="Meals off schedule"/>
-                        <Button title="Meds off schedule"/>
-                        <Button title="Excessive heat - in or out"/>
-                        <Button title="Agitated/stress"/>
+                        <ButtonGroup buttons={seizureTriggers} exclusive={false}/>
                     </View>
 
                     <TextInput placeholder="General notes"/>
                 </View>
-                <View>
-                    <Button title="Return" onPress={props.onCancel}/>
+                <View style={styles.buttonContainer}>
+                    <Button title="Return" onPress={props.onCancel} color='red'/>
+                    <Button title="Save" onPress={props.onCancel} color='green'/>
+                    {/* TODO - retrieve selected object from each ButtonGroup */}
                 </View>
             </View>            
         </Modal>
@@ -94,9 +150,4 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',    // Allow items to wrap to the next line
     },
-    // button: {
-    //     width: '30%',
-    //     marginTop: 16,
-    //     marginHorizontal: 8,
-    // }
 });
