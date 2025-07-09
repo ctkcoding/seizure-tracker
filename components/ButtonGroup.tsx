@@ -20,38 +20,39 @@ function ButtonGroup(props: ButtonGroupProps) {
     // how can i avoid duplicating props
     let buttons = props.buttons;
 
-    function updateSelected(buttonKey: number) {
+    function updateExclusive(buttonKey: number) {
         // if exclusive
         // set all false
         // then set this true
-        if (props.exclusive) {
-            setSelectedButtons([buttonKey]);
-            for (const button of buttons) {
+        setSelectedButtons([buttonKey]);
+        for (const button of buttons) {
+            if (button.key == buttonKey) {
+                button.selected = true;
+            } else {
                 button.selected = false;
-                if (button.key == buttonKey) {
-                    button.selected = true;
-                }
             }
-        } else {
+        }
+    }
+    
+    function updateInclusive(buttonKey: number) {
         // if non exclusive
         // check if already set. delete from list
         // otherwise add to list
-            console.log("updating non exclusive buttons");
-            if (selectedButtons.includes(buttonKey)) {
-                selectedButtons.splice(selectedButtons.indexOf(buttonKey), 1);
-            } else {
-                selectedButtons.push(buttonKey);
-            }
-            let indexOfCurrent :number = buttons.indexOf(props.buttons[buttonKey]);
-            buttons[indexOfCurrent].selected = !buttons[indexOfCurrent].selected;
-            console.warn("selected: " + buttons[indexOfCurrent].selected);
-            
-            // this is a bad practice! how do I extract just the one button to work on?
-            
-            console.log(selectedButtons);
+        if (selectedButtons.includes(buttonKey)) {
+            setSelectedButtons(
+                selectedButtons.filter(b => b !== buttonKey)
+            )
+        } else {
+            setSelectedButtons([
+                ...selectedButtons,
+                buttonKey]);
         }
-        // todo - send data back to parent!!
-        // props.selected = selectedButtons;
+
+        for (const button of buttons) {
+            if (button.key == buttonKey) {
+                button.selected = button.selected ? false : true;
+            }
+        }
     }
     
     return(
@@ -62,7 +63,7 @@ function ButtonGroup(props: ButtonGroupProps) {
                         title={button.title}
                         id={button.key}
                         key={button.key}
-                        onPress={updateSelected}
+                        onPress={props.exclusive ? updateExclusive : updateInclusive}
                         selected={button.selected ? button.selected : false}
                     />
                 );

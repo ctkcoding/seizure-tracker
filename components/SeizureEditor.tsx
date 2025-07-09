@@ -106,6 +106,7 @@ function SeizureEditor(props: SeizureEditorProps) {
                     </View>
 
                     <TextInput placeholder="General notes"/>
+                    {/* todo - how large should this be? */}
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button title="Return" onPress={props.onCancel} color='red'/>
