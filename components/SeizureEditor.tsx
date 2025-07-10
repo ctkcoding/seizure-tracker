@@ -11,6 +11,7 @@ interface SeizureEditorProps {
 
 function SeizureEditor(props: SeizureEditorProps) {
 
+    // todo - move these to config files
     const seizureTimes: ButtonData[] = [
         {
             "title": "Under 1min",
@@ -82,7 +83,7 @@ function SeizureEditor(props: SeizureEditorProps) {
             <View style={styles.inputContainer}>
                 <View style={styles.viewSection}>
                     <Text>Seizure date and time:</Text>
-                    {/* TODO - replace with picker */}
+                    {/* TODO - replace with date/time picker */}
                     <TextInput
                         style={styles.textInput}
                         placeholder="Seizure date"
@@ -106,7 +107,8 @@ function SeizureEditor(props: SeizureEditorProps) {
                     </View>
 
                     <TextInput placeholder="General notes"/>
-                    {/* todo - how large should this be? */}
+                    {/* todo - make this box larger */}
+                    {/* todo - allow create/add tags here*/}
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button title="Return" onPress={props.onCancel} color='red'/>

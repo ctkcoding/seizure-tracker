@@ -10,7 +10,7 @@ export interface ButtonData {
 
 interface ButtonGroupProps {
     buttons: ButtonData[];
-    selected?: number[];
+    selected?: number[]; // todo - delete this ???
     exclusive: boolean;
 }
 
