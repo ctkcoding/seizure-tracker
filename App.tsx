@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import SeizureEditor from './components/SeizureEditor';
+import SeizureItem, { SeizureItemProps } from './components/SeizureItem';
 
 export default function App() {
   const [modalIsVisible, setModalIsVisible] = useState(false);
-  const [seizures, setSeizures] = useState([]);
 
   function showSeizureEditorHandler() {
     setModalIsVisible(true);
@@ -14,6 +14,25 @@ export default function App() {
   function hideSeizureEditorHandler() {
     setModalIsVisible(false);
   }
+
+
+  // new Date(2023, 09, 28, 22, 24, 00, 00)
+
+  // todo - rethink props export when I start using DB
+  const dummySeizures: SeizureItemProps[] = [
+      {
+          "title": "Oldest",
+          "timestamp": new Date(2023, 9, 28, 22, 24, 0, 0),
+      },
+      {
+          "title": "Middle",
+          "timestamp": new Date(2024, 2, 3, 10, 0, 0, 0),
+      },
+      {
+          "title": "Latest",
+          "timestamp": new Date(2025, 10, 11, 11, 0, 0, 0),
+      },
+  ];
 
 
   return (
@@ -26,7 +45,19 @@ export default function App() {
             visible={modalIsVisible}
             onCancel={hideSeizureEditorHandler}
           />
-          <Text>List seizures here</Text>
+          {/* todo - list objects like in editor/buttons */}
+          <View>
+            {dummySeizures.map((seizure) => {
+                return (
+                    <SeizureItem
+                        title={seizure.title}
+                        timestamp={seizure.timestamp}
+                        key={seizure.timestamp.getTime()}
+                    />
+                );
+            })}
+        </View>
+
         </View>
         <View style={styles.button}>
           <Button

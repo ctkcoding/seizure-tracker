@@ -1,15 +1,15 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 
-interface SeizureItemProps {
-    text: string;
+export interface SeizureItemProps {
+    title: string;
+    timestamp: Date;
 }
 
 function SeizureItem(props: SeizureItemProps) {
     return (
         <View >
             <Text>
-                {/* TODO - display date/time ONLY */}
-                {props.text}
+                {props.title + ": " + props.timestamp.toDateString()}
             </Text>
         </View>
     )
